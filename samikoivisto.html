@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tarjahalonen.css">
+    <script src="./nickiminaj.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Visvajit In Curry Heaven</title>
+</head>
+<body>
+    <div id="vue" v-on:click="pomppu()">
+    <div id="visvajit" :style="{ top: top + 'vh', bottom: bottom + 'vh', left: left + 'vw', right: right + 'vw', backgroundImage: 'url(' + image + ')'}"></div>
+    </div>
+
+    <script>
+
+    var farded = new Audio('taco.mp3')
+    var bgmusic = new Audio('DINGA.mp3')
+
+    var vm = new Vue({
+    el: '#vue',
+    data: 
+    {
+        top: 50,
+        bottom: 50,
+        left: 50,
+        right: 50,
+        way: 0.1,
+        gravity: 0.01,
+        image: "Images/vismut.png"
+    },
+    methods: {
+        pomppu: function (event) 
+        {
+            this.gravity -= 0.5;
+        },
+        
+        playSound: function () {
+        farded.play();
+        },
+        forwardDown: function()
+        {
+            if (this.top >= 80) {
+                this.gravity = -0.1;
+            }
+            if (this.right <= 10) {
+                this.image = "Images/vismutt.png";
+                this.way += 0.03
+                this.way -= this.way * 2;
+                this.playSound();
+            }
+            if (this.left <= 1) {
+                this.image = "Images/vismut.png";
+                this.way -= 0.03
+                this.way -= this.way * 2;
+                this.playSound();
+            }
+
+            this.left += this.way;
+            this.right -= this.way;
+            this.top += this.gravity;
+            this.bottom -= this.gravity;
+            this.gravity += 0.01;
+            bgmusic.play();
+        }
+    },
+
+    mounted: function()
+    {
+    setInterval(this.forwardDown, 10);
+    }
+    })
+    </script>
+</body>
+</html>
